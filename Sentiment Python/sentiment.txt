@@ -1,0 +1,54 @@
+A substantial number of sentiment analysis approaches rely
+greatly on an underlying sentiment (or opinion) lexicon. A
+sentiment lexicon is a list of lexical features (e.g., words)
+which are generally labeled according to their semantic
+orientation as either positive or negative.
+
+
+###. sentiment_lexicon.txt 
+
+
+The sentiment lexicon is sensitive both the polarity and the intensity of sentiments 
+expressed in social media contexts, and is also generally applicable to sentiment analysis 
+in other domains. 
+
+We begin by constructing a list inspired by examining existing well-established 
+sentiment word-banks (LIWC, ANEW, and GI). To this, we next incorporate numerous 
+lexical features common to sentiment expression in microblogs, including 
+- a full list of Western-style emoticons, for example, :-) denotes a smiley face 
+and generally indicates positive sentiment) 
+- sentiment-related acronyms and initialisms (e.g., LOL and WTF are both examples of 
+sentiment-laden initialisms) 
+- commonly used slang with sentiment value (e.g., nah, meh and giggly). 
+
+This process provided us with over 9,000 lexical feature candidates. Next, we assessed 
+the general applicability of each feature candidate to sentiment expressions. We 
+used a wisdom-of-the-crowd13 (WotC) approach to acquire a valid 
+point estimate for the sentiment valence (intensity) of each context-free candidate 
+feature. We collected intensity ratings on each of our candidate lexical features 
+from ten independent human raters (for a total of 90,000+ ratings). Features were 
+rated on a scale from "[–4] Extremely Negative" to "[4] Extremely Positive", with 
+allowance for "[0] Neutral (or Neither, N/A)".
+
+We kept every lexical feature that had a non-zero mean rating, and whose standard 
+deviation was less than 2.5 as determined by the aggregate of ten independent raters. 
+This left us with just over 7,500 lexical features with validated valence scores that 
+indicated both the sentiment polarity (positive/negative), and the sentiment intensity 
+on a scale from –4 to +4. For example, the word "okay" has a positive valence of 0.9, 
+"good" is 1.9, and "great" is 3.1, whereas "horrible" is –2.5, the frowning emoticon :( 
+is –2.2, and "sucks" and it's slang derivative "sux" are both –1.5. 
+
+###. Sentiment.py 
+
+The Python code for the rule-based sentiment analysis engine. Implements the 
+grammatical and syntactical rules, incorporating empirically 
+derived quantifications for the impact of each rule on the perceived intensity of 
+sentiment in sentence-level text. Our approach seeks to leverage the advantages of parsimonious
+rule-based modeling to construct a computational sentiment analysis engine that 
+1) works well on social media style text, yet readily generalizes to multiple domains,
+2) requires no training data, but is constructed from a generalizable, valence-based, human-curated gold standard sentiment lexicon 
+3) is fast enough to be used online with streaming data, and 
+4) does not severely suffer from a speed-performance tradeoff.  
+Importantly, these heuristics go beyond what would  normally be captured in a typical bag-of-words model. They incorporate "word-order 
+sensitive relationships" between terms. For example, degree modifiers (also called 
+intensifiers, booster words, or degree adverbs) impact sentiment intensity by either increasing or decreasing the intensity.

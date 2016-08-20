@@ -1,0 +1,10 @@
+setwd("C://Users//NEW//Desktop//big_data_proj")
+mydata<-read.csv("test1.csv")
+mydata
+counts<-table(mydata$overall)
+pie(counts,labels=rownames(counts),main="Overall Sentiment")
+counts<-table(mydata$positive)
+pie(counts,labels=rownames(counts),main="Positive Sentiment")
+counts<-table(mydata$negative)
+pie(counts,labels=rownames(counts),main="Negative Sentiment")
+
